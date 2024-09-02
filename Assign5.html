@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSX and Babel</title>
+    <style>
+      .item-page {
+        width: 90%;
+        margin: 0 auto;
+        font-size: 30px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+      .item-image {
+        width: 100%;
+        height: 400px;
+        border-radius: 20px;
+        display: block;
+        margin: 0 auto;
+      }
+      .item-name {
+        font-size: 60px;
+        font-weight: bold;
+        margin: 20px 0 10px;
+      }
+      .item-price {
+        font-size: 24px;
+        color: black;
+        margin-bottom: 20px;
+      }
+      .item-details {
+        margin-bottom: 20px;
+        color: grey;
+        font-size: 30px;
+      }
+      .item-features {
+        list-style-type: disc;
+        padding-left: 20px;
+        margin-bottom: 20px;
+      }
+      .add-to-cart {
+        padding: 20px 20px;
+        font-size: 20px;
+        width:100%;
+        background-color:black;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 20px;
+        display: block;
+        margin: 20px auto;
+      }
+      #size {
+        font-size: 35px;
+      }
+      table {
+        width: 100%;
+        margin: 20px 0;
+      }
+      td {
+        padding: 10px;
+        font-weight: 200;
+      }
+      thead {
+        font-size: 40px;
+        color: orange;
+        font-weight: 400;
+      }
+      .product-details-title {
+        color: orange;
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+      .product-detail {
+        margin-bottom: 10px;
+      }
+      .detail-label {
+        font-weight: bold;
+      }
+      .detail-value {
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      function ProductDetail({ label, value }) {
+        return (
+          <div className="product-detail">
+            <span className="detail-label">{label}:</span>
+            <span className="detail-value">{value}</span>
+          </div>
+        );
+      }
+
+      function ItemPage() {
+        return (
+          <div className="item-page">
+            <img
+              src={
+                "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwb83e9f06/images/Titan/Catalog/90110QM01_1.jpg?sw=800&sh=800"
+              }
+              alt="Product Image"
+              className="item-image"
+            />
+            <div className="item-name">Automatic Watch</div>
+            <div className="item-price">$99.99</div>
+            <div className="item-details" id="size">
+              This is a short description of the product, highlighting its key
+              benefits and features. This is a short description of the product,
+              highlighting its key benefits and features.
+            </div>
+
+            <p>
+              Here you can provide more in-depth details about the product,
+              including its specifications, materials, care instructions, and
+              other relevant information.
+            </p>
+
+            <hr />
+
+            <table>
+              <thead>Features</thead>
+              <tbody>
+                <tr>
+                  <td>Chronograph</td>
+                  <td>Chronograph</td>
+                </tr>
+                <tr>
+                  <td>Chronograph</td>
+                  <td>Chronograph</td>
+                </tr>
+                <tr>
+                  <td>Chronograph</td>
+                  <td>Chronograph</td>
+                </tr>
+                <tr>
+                  <td>Chronograph</td>
+                  <td>Chronograph</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <hr />
+
+            <div className="product-details-title">Product Details</div>
+            <div>
+              <ProductDetail label="Between lugs" value="20mm" />
+              <ProductDetail label="Bracelet" value="Leather Strap" />
+              <ProductDetail label="Case" value="Steel" />
+              <ProductDetail label="Case Diameter" value="42mm" />
+             <ProductDetail label="Dial Color" value="Black" />
+              <ProductDetail label="Crystal" value="Domed, scratch-resistant sapphire crystal with anti -refelctive treatment inside " />
+              <ProductDetail label="Water resistance" value=" 5 bar (50 meter/167 feet)" />
+            </div>
+           <button className="add-to-cart">ADD TO CART</button>
+           <p style={{ textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+<img src='data:image/png;base64,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'
+
+style={{ height: '60px', width: 'auto', marginRight: '10px' }} 
+
+/>  2-3 business days
+</p>
+
+
+          </div>
+        );
+      }
+
+      ReactDOM.render(<ItemPage />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

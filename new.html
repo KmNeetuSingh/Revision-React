@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Item Features Table</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      function ItemFeatures() {
+        const headingStyle = {
+          fontSize: '44px',
+          color: '#333',
+        };
+
+        const tableStyle = {
+          width: '100%',
+        
+        };
+
+        const cellStyle = {
+          padding: '10px'
+        };
+
+
+
+        return (
+          <div>
+            <table style={tableStyle}>
+              <thead>
+                Feature
+              </thead>
+              <tbody>
+                <tr>
+                  <td style={cellStyle}>Feature 3</td>
+                  <td style={cellStyle}>Feature 4</td>
+                </tr>
+                <tr>
+                  <td style={cellStyle}>Feature 5</td>
+                  <td style={cellStyle}>Feature 6</td>
+                </tr>
+                <tr>
+                  <td style={cellStyle}>Feature 7</td>
+                  <td style={cellStyle}>Feature 8</td>
+                </tr>
+                <tr>
+                  <td style={cellStyle}>Feature 9</td>
+                  <td style={cellStyle}>Feature 10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<ItemFeatures />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
