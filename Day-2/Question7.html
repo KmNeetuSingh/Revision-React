@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List Enhancements</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .todo-app {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .todo-app input[type="text"] {
+            width: calc(100% - 100px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .todo-app button {
+            margin-left: 20px;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .todo-app button:hover {
+            background-color: #0056b3;
+        }
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .todo-item.completed {
+            text-decoration: line-through;
+            color: #aaa;
+        }
+        .todo-item button {
+            margin-left: 10px;
+            border: none;
+            background-color: #dc3545;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .todo-item button:hover {
+            background-color: #c82333;
+        }
+        .todo-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .todo-item input[type="text"] {
+            flex: 1;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const { useState } = React;
+
+        const ToDoList = () => {
+            const [todos, setTodos] = useState([]);
+            const [inputValue, setInputValue] = useState('');
+            const [editId, setEditId] = useState(null);
+            const [editText, setEditText] = useState('');
+
+            const addTodo = () => {
+                if (inputValue.trim()) {
+                    setTodos([...todos, { id: Date.now(), text: inputValue, completed: false }]);
+                    setInputValue('');
+                }
+            };
+
+            const deleteTodo = (id) => {
+                setTodos(todos.filter(todo => todo.id !== id));
+            };
+
+            const toggleComplete = (id) => {
+                setTodos(todos.map(todo =>
+                    todo.id === id ? { ...todo, completed: !todo.completed } : todo
+                ));
+            };
+
+            const startEditing = (id, text) => {
+                setEditId(id);
+                setEditText(text);
+            };
+
+            const saveEdit = () => {
+                setTodos(todos.map(todo =>
+                    todo.id === editId ? { ...todo, text: editText } : todo
+                ));
+                setEditId(null);
+                setEditText('');
+            };
+
+            const cancelEdit = () => {
+                setEditId(null);
+                setEditText('');
+            };
+
+            return (
+                <div className="todo-app">
+                    <input
+                        type="text"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder="Add a new todo"
+                    />
+                    <button onClick={addTodo}>Add</button>
+                    <div>
+                        {todos.map(todo => (
+                            <div
+                                key={todo.id}
+                                className={`todo-item ${todo.completed ? 'completed' : ''}`}
+                            >
+                                {editId === todo.id ? (
+                                    <>
+                                        <input
+                                            type="text"
+                                            value={editText}
+                                            onChange={(e) => setEditText(e.target.value)}
+                                        />
+                                        <button onClick={saveEdit}>Save</button>
+                                        <button onClick={cancelEdit}>Cancel</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <input
+                                            type="checkbox"
+                                            checked={todo.completed}
+                                            onChange={() => toggleComplete(todo.id)}
+                                        />
+                                        {todo.text}
+                                        <button onClick={() => startEditing(todo.id, todo.text)}>Edit</button>
+                                        <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                                    </>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<ToDoList />, document.getElementById('root'));
+    </script>
+</body>
+</html>

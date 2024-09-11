@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile List</title>
+    <style>
+        .user-profile-list {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .user-profile-list input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .profile {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .profile h2 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const { useState } = React;
+        const initialProfiles = [
+            { id: 1, name: 'Neeti' },
+            { id: 2, name: 'Ankita' },
+            { id: 3, name: 'Ruchi' },
+            { id: 4, name: 'Avika' },
+            { id: 5, name: 'Anshi' },
+        ];
+
+        const UserProfile = ({ profile }) => {
+            return (
+                <div className="profile">
+                    <h2>{profile.name}</h2>
+                </div>
+            );
+        };
+
+        const UserProfileList = () => {
+            const [searchQuery, setSearchQuery] = useState('');
+            const [profiles, setProfiles] = useState(initialProfiles);
+            const filteredProfiles = profiles.filter(profile =>
+                profile.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+
+            return (
+                <div className="user-profile-list">
+                    <input
+                        type="text"
+                        placeholder="Search by name"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <div className="profiles">
+                        {filteredProfiles.length > 0 ? (
+                            filteredProfiles.map(profile => (
+                                <UserProfile key={profile.id} profile={profile} />
+                            ))
+                        ) : (
+                            <p>No profiles found</p>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<UserProfileList />, document.getElementById('root'));
+    </script>
+</body>
+</html>

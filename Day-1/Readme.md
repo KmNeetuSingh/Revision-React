@@ -1,6 +1,6 @@
 ### OBSERVATIONS OF DAY-1:-
 ##  Declarative Programming :- 
- Declarative programming in which we are focusing  on describing what the desired outcomes should be rather than detailing the specific tasks to acheive it .Html is inherently decelarative , as it describes the structure of web pages without specifying the steps to render them. React is also a declarative type .
+ Declarative programming in which we are focusing  on describing what the desired outcomes should be rather than detailing the specific tasks to acheive it . Html is inherently decelarative , as it describes the structure of web pages without specifying the steps to render them. React is also a declarative type .
 
 ## Props:-
 # Readability
